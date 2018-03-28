@@ -34,6 +34,7 @@ def process_image(image):
         gray_image = cv2.cvtColor(unchanged_image, cv2.COLOR_BGR2GRAY)
 
         faces = detect_faces(face_detection, gray_image)
+        detected_emotions = []
         for face_coordinates in faces:
             x1, x2, y1, y2 = apply_offsets(face_coordinates, emotion_offsets)
             gray_face = gray_image[y1:y2, x1:x2]
@@ -47,7 +48,11 @@ def process_image(image):
             gray_face = np.expand_dims(gray_face, 0)
             gray_face = np.expand_dims(gray_face, -1)
             emotion_label_arg = np.argmax(emotion_classifier.predict(gray_face))
-            return emotion_labels[emotion_label_arg]
+            detected_emotions.append({
+                "coordinates": [str(y1), str(x2), str(y2), str(x1)],
+                "emotion": emotion_labels[emotion_label_arg]})
+
+        return detected_emotions
 
     except Exception as err:
         logging.error('Error in emotion gender processor: "{0}"'.format(err))

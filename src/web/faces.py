@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, make_response, request, abort, redirect, send_file
+from flask import Flask, jsonify, make_response, request, abort, redirect
 import logging
 
 import emotion_gender_processor as eg_processor
@@ -13,14 +13,14 @@ def index():
 def upload():
     try:
         image = request.files['image'].read()
-        emotion = eg_processor.process_image(image)
-        return emotion
+        emotions = eg_processor.process_image(image)
+        return jsonify(emotions)
     except Exception as err:
         logging.error('An error has occurred whilst processing the file: "{0}"'.format(err))
         abort(400)
 
 @app.errorhandler(400)
-def bad_request(erro):
+def bad_request(error):
     return make_response(jsonify({'error': 'We cannot process the file sent in the request.'}), 400)
 
 @app.errorhandler(404)
