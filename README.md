@@ -1,6 +1,6 @@
 # Forked for usage with RaaSP
 From project root
-`docker build -t raasp-mood-detection . && docker run --rm -p 8084:8084 -ti raasp-mood-detection`
+`docker build -t face-classification . && docker run -p 8084:8084 -ti face-classification`
 `curl -v -F image=@[path_to_image]  http://localhost:8084/classifyImage`
 
 
