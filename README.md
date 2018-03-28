@@ -1,3 +1,10 @@
+# Forked for usage with RaaSP
+From project root
+`docker build -t raasp-mood-detection . && docker run --rm -p 8084:8084 -ti raasp-mood-detection`
+`curl -v -F image=@[path_to_image]  http://localhost:8084/classifyImage`
+
+
+
 # Face classification and detection from the [B-IT-BOTS robotics team](https://mas-group.inf.h-brs.de/?page_id=622).
 Real-time face detection and emotion/gender classification using fer2013/IMDB datasets with a keras CNN model and openCV.
 * IMDB gender classification test accuracy: 96%.
@@ -67,4 +74,3 @@ With a few steps one can get its own face classification and detection running. 
 
 * Run the train_gender_classification.py file
 > python3 train_gender_classifier.py
-
